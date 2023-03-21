@@ -16,7 +16,7 @@ function App() {
   }
   return (
     <>
-      {isLoggedIn? ( 
+      {!isLoggedIn? ( 
         <Login onLogin={handleLogin} />):( 
         <Main/>)}
      
