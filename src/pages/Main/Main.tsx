@@ -38,7 +38,7 @@ const Main = () => {
       <main className={[isMenuActive?"menu-active":"",isMenuHover?"menu-hover":""].join(' ')} >
       <section>
         <br/><br/><br/>
-        <FiveShot/>
+        <FiveShot onLogin={()=>{}}/>
       </section>
     </main>
     </div>

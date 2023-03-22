@@ -1,0 +1,31 @@
+div{
+    margin: 10px;
+}
+div.flex-group{
+    display: flex;
+    flex-wrap: wrap;
+}
+.vertical
+{
+    width: 250px;
+    height: 350px;
+}
+.horizontal{
+    width: 350px;
+    height: 200px;
+}
+div.lateral-view{
+    background-color: antiquewhite;
+}
+div.medial-view{
+    background-color: aquamarine;
+}
+div.bottom-view{
+    background-color: burlywood;
+}
+div.front-view{
+    background-color: darkgray;
+}
+div.heel-view{
+    background-color: hotpink;
+}
