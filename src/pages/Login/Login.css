@@ -1,9 +1,12 @@
 
 .login-container{
-  width: 100%;
-  height: 100vh;
-  background-color: #eee;
   box-sizing:border-box;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 300px;
 }
 
 .login-container h2{
@@ -12,8 +15,6 @@
 }
 
 .input-area{
-  width: 60%;
-  max-width: 300px;
   margin: auto;
   padding: 40px;
 }
