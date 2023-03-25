@@ -4,22 +4,21 @@
   position: absolute;
   top: 50%;
   left:50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  max-width: 300px;
+  transform: translate(-50%, -75%);
+  min-width: 400px;
+  width: 100%;
+  text-align: center;
 }
 
 .login-container h2{
-  text-align: center;
   margin-top: 0px;
 }
 
 .input-area{
-  margin: auto;
   padding: 40px;
 }
 
-.button-area{
-  margin-top: 30px;
-  text-align: center;
+.login-button button{
+  width: 200px;
 }
+
