@@ -1,6 +1,4 @@
-div{
-    margin: 10px;
-}
+
 div.flex-group{
     display: flex;
     flex-wrap: wrap;
