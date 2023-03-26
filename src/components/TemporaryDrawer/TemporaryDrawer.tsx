@@ -45,7 +45,7 @@ export default function TemporaryDrawer() {
       <List>
         {['Five Shot', 'PFC'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={()=>{console.log(text)}}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
@@ -58,7 +58,7 @@ export default function TemporaryDrawer() {
       <List>
         {['Upper Tooling','Bottom Tooling', 'PE Workspace'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={()=>{console.log(text)}}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
