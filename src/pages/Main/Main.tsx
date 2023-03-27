@@ -6,29 +6,11 @@ import TemporaryDrawer from '../../components/TemporaryDrawer';
 import Header from '../../components/Header';
 
 const Main = () => {
-  const menuRef = useRef<HTMLHeadingElement>(null);
-  const navRef = useRef<HTMLElement>(null);
-
-  let [isMenuActive, setIsMenuActive] = useState(false);
-  let [isMenuHover, setIsMenuHover] = useState(false);
-
-  const menuClick = () => {
-    setIsMenuActive(!isMenuActive);
-    setIsMenuHover(false);
-  };
-  const handleMouseEnter = () => {
-    if (isMenuActive) return;
-    setIsMenuHover(true);
-
-  };
-  const handleMouseLeave = () => {
-    setIsMenuHover(false);
-  };
-
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div>
-      <Header></Header>
-      <TemporaryDrawer></TemporaryDrawer>
+      <Header handleMenuClick={setMenuOpen}></Header>
+      <TemporaryDrawer openProp={menuOpen} setMenuOpen={setMenuOpen}></TemporaryDrawer>
     </div>
   );
 };

@@ -13,14 +13,13 @@ import MailIcon from '@mui/icons-material/Mail';
 
 type Anchor = 'left' | 'right';
 
-export default function TemporaryDrawer() {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+interface TemporaryDrawerProps {
+  openProp: boolean;
+  setMenuOpen: (menuOpen:boolean) => void;
+}
 
+const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen }) => {
+  
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
     (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -31,8 +30,7 @@ export default function TemporaryDrawer() {
       ) {
         return;
       }
-
-      setState({ ...state, [anchor]: open });
+      setMenuOpen(open);
     };
 
   const list = (anchor: Anchor) => (
@@ -69,14 +67,14 @@ export default function TemporaryDrawer() {
       </List>
     </Box>
   );
-
+  console.log("TemporaryDrawer redraw");
   return (
+    
     <div>
         <React.Fragment key={'left'}>
-          <Button onClick={toggleDrawer('left', true)}>Menu</Button>
           <Drawer
             anchor={'left'}
-            open={state['left']}
+            open={openProp}
             onClose={toggleDrawer('left', false)}
           >
             {list('left')}
@@ -84,4 +82,6 @@ export default function TemporaryDrawer() {
         </React.Fragment>
     </div>
   );
-}
+};
+
+export default TemporaryDrawer;
