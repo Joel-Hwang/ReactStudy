@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import './Main.css';
 import FiveShot from '../FiveShot'
 import TemporaryDrawer from '../../components/TemporaryDrawer';
+import Header from '../../components/Header';
 
 const Main = () => {
   const menuRef = useRef<HTMLHeadingElement>(null);
@@ -26,7 +27,7 @@ const Main = () => {
 
   return (
     <div>
-      
+      <Header></Header>
       <TemporaryDrawer></TemporaryDrawer>
     </div>
   );
