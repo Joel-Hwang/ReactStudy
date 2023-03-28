@@ -7,10 +7,16 @@ import Header from '../../components/Header';
 
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuName, setMenuName] = useState("");
   return (
     <div>
-      <Header handleMenuClick={setMenuOpen}></Header>
-      <TemporaryDrawer openProp={menuOpen} setMenuOpen={setMenuOpen}></TemporaryDrawer>
+      <Header handleMenuClick={setMenuOpen} title={menuName}></Header>
+      <FiveShot></FiveShot>
+      <TemporaryDrawer 
+        openProp={menuOpen} 
+        setMenuOpen={setMenuOpen} 
+        setMenuName={setMenuName} />
+      
     </div>
   );
 };

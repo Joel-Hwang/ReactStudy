@@ -9,8 +9,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 interface ButtonAppBarProp {
     handleMenuClick: (open:boolean)=> void;
+    title:string;
 }
-const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick}) => {
+const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title}) => {
 
   const clickMenu = () => {
     handleMenuClick(true);
@@ -30,7 +31,7 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick}) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            {title}
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
