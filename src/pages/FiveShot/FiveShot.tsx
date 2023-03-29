@@ -7,6 +7,7 @@ import './FiveShot.css';
 
 const FiveShot = () => {
 
+  const [lateralView, setLateralView] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
   };
@@ -86,19 +87,33 @@ const FiveShot = () => {
             }}>
             <Typography variant="button" display="block" gutterBottom>
               Lateral View
-            </Typography>
-            <Box
+              <Box
               component="img"
               sx={{
-                height: 213,
-                width: 310,
-                maxHeight: { xs: 213, md: 147 },
-                maxWidth: { xs: 310, md: 210 },
+                height: 173,
+                width: 300,
+                maxHeight: { xs: 203, md: 107 },
+                maxWidth: { xs: 300, md: 170 },
               }}
               alt="The house from the offer."
-              src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
+              src={lateralView}
             />
-            <input type="file" hidden />
+            </Typography>
+            
+            <input id="lateralViewFile" type="file" hidden 
+              onChange={
+                (evt)=>{
+                  if(evt.target.files && evt.target.files[0]) {
+                    const reader = new FileReader()
+                    reader.onload = e => {
+                      let imageBlob:string = e.target?.result as string;
+                      setLateralView(imageBlob);
+                    }
+                    reader.readAsDataURL(evt.target.files[0])
+                }
+
+                }
+              }/>
           </Button>
 
           <Button
