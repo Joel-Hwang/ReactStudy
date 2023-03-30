@@ -22,11 +22,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    console.log("name :" + name, "value : " + value);
     setUser((prevUser) => ({ ...prevUser, [name]: value }));
   };
 
   return (
+    <>
     <div className='login-container'>
       <h2>PLM</h2>
       <div className='input-area'>
@@ -57,9 +57,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className='login-button'>
         <Button variant="contained" onClick={handleClick}>Log in</Button>
       </div>
-
+      
 
     </div>
+    <div style={ {position:'absolute', bottom:'50px', textAlign:'center', width:'100%'} }>
+      <img src="/img/digital_navy_rgb_01_1.png" width={150}/>
+    </div>
+    </>
   );
 };
 

@@ -8,60 +8,55 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 type Anchor = 'left' | 'right';
 
-export default function TemporaryDrawer() {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+interface TemporaryDrawerProps {
+  openProp: boolean;
+  setMenuOpen: (menuOpen: boolean) => void;
+  setMenuName: (menuName: string) => void;
+}
 
-  const toggleDrawer =
-    (anchor: Anchor, open: boolean) =>
-    (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return;
-      }
+const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen, setMenuName }) => {
 
-      setState({ ...state, [anchor]: open });
-    };
+  const toggleDrawer = (anchor: Anchor, open: boolean, menuname?:string) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return;
+    }
+    setMenuOpen(open);
+    if(menuname) setMenuName(menuname);
+  };
 
   const list = (anchor: Anchor) => (
     <Box
       sx={{ width: 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List key={"asd"}>
         {['Five Shot', 'PFC'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={()=>{console.log(text)}}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+          <ListItem disablePadding
+          onClick={toggleDrawer(anchor, false,text)}
+          onKeyDown={toggleDrawer(anchor, false,text)}>
+            <ListItemButton>
+              <ListItemIcon> <ArrowRightIcon/> </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
-      <List>
-        {['Upper Tooling','Bottom Tooling', 'PE Workspace'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton onClick={()=>{console.log(text)}}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
+      <List key={"aqwe"}>
+        {['Upper Tooling', 'Bottom Tooling', 'PE Workspace'].map((text, index) => (
+          <ListItem disablePadding
+            onClick={toggleDrawer(anchor, false,text)}
+            onKeyDown={toggleDrawer(anchor, false,text)}>
+            <ListItemButton>
+              <ListItemIcon><ArrowRightIcon/></ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
@@ -69,21 +64,20 @@ export default function TemporaryDrawer() {
       </List>
     </Box>
   );
-
   return (
+
     <div>
-      {(['left'] as const).map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>Menu</Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+      <React.Fragment key={'left'}>
+        <Drawer
+          anchor={'left'}
+          open={openProp}
+          onClose={toggleDrawer('left', false)}
+        >
+          {list('left')}
+        </Drawer>
+      </React.Fragment>
     </div>
   );
-}
+};
+
+export default TemporaryDrawer;

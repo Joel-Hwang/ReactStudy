@@ -1,49 +1,169 @@
 import React, { useState } from 'react';
+import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Divider  } from '@mui/material';
 import Camera from '../../components/Camera';
 import ImageFileInput from '../../components/ImageFileInput';
 import './FiveShot.css';
 
-interface FiveShotProps {
-  onLogin:() => void;
-}
 
-const FiveShot: React.FC<FiveShotProps> = ({onLogin}) => {
+const FiveShot = () => {
+
+  const [lateralView, setLateralView] = useState("/img/whiteblank.png");
+  const [medialView, setMedialView] = useState("/img/whiteblank.png");
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+  };
+  const searchArea = () => (
+        <div>
+        <TextField
+            id="username"
+            name="username"
+            label="Season"
+            variant="standard"
+            className='criteria-small'
+            onChange={handleInputChange}
+          />
+        <TextField
+            id="username"
+            name="username"
+            label="Round"
+            variant="standard"
+            className='criteria-small'
+            onChange={handleInputChange}
+          />
+          <TextField
+            id="username"
+            name="username"
+            label="Dev.Style"
+            variant="standard"
+            className='criteria-medium'
+            onChange={handleInputChange}
+          />
+        <TextField
+            id="username"
+            name="username"
+            label="Colorway"
+            variant="standard"
+            className='criteria-medium'
+            onChange={handleInputChange}
+          />
+        </div>
+  );
+
+  const productArea = () => {
+    return (
+      <div>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            </ListItemAvatar>
+            <ListItemText
+              primary="SP24 SPA CFM JORDAN 23E"
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    DN4890-1427945
+                  </Typography><br/>
+                  {" PURE PLATINUM/DUNE RED-BLACK-"}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+        </List>
+      </div>
+    );
+  }
+
+
   return (
-    <div>
-        <h1>Five Shots</h1>
-        <div>
-          Search Area
-          <input type='text' placeholder='Criteria a'></input>
-          <input type='text' placeholder='Criteria b'></input>
-          <input type='text' placeholder='Criteria c'></input>
-          <br />
-          <input type='text' placeholder='Criteria d'></input>
-          <input type='text' placeholder='Criteria e'></input>
-          <input type='text' placeholder='Criteria f'></input>
-          <button>Search</button>
-        </div>
-        <br/>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <div>
-          <div className='flex-group'>
-            <div className='horizontal lateral-view'>
-              <ImageFileInput labelValue='Lateral View'/>
-            </div>
-            <div className='horizontal medial-view'>
-            <ImageFileInput labelValue='Medial View'/>
-            </div>
-            <div className='horizontal bottom-view'>
-              <ImageFileInput labelValue='Bottom View'/>
-            </div>
-          </div>
-          <div className='flex-group'>
-            <div className='vertical front-view'>Front View<Camera></Camera></div>
-            <div className='vertical heel-view'>Heel View<Camera></Camera></div>
-          </div>
-        </div>
+    <div className='five-shot'>
+        {searchArea()}
+        {productArea()}
         
-        
+        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent:'center'}}>
+          <Button
+            variant="outlined"
+            component="label"
+            sx={{
+              width: 320,
+              minWidth: 260,
+            }}>
+            <Typography variant="button" display="block" gutterBottom>
+              Lateral View
+              <Box
+              component="img"
+              sx={{
+                width: 280,
+                minWidth: 220,
+              }}
+              alt=""
+              src={lateralView}
+            />
+            </Typography>
+            
+            <input type="file" hidden 
+              onChange={
+                (evt)=>{
+                  if(evt.target.files && evt.target.files[0]) {
+                    const reader = new FileReader()
+                    reader.onload = e => {
+                      let imageBlob:string = e.target?.result as string;
+                      setLateralView(imageBlob);
+                    }
+                    reader.readAsDataURL(evt.target.files[0])
+                  }
+                }
+              }/>
+          </Button>
+          <ImageFileInput
+            label={"Medial View"} 
+            width={320} 
+            minWidth={260} 
+            imageSrcProp={medialView} 
+            setImageSrc={setMedialView}
+            />
+
+
+          <Button
+            variant="outlined"
+            component="label"
+            className='horizontal'>
+            Medial View
+            <input type="file" hidden />
+          </Button>
+
+          <Button
+            variant="outlined"
+            component="label"
+            className='horizontal'>
+            Bottom View
+            <input type="file" hidden />
+          </Button>
+
+          <Button
+            variant="outlined"
+            component="label"
+            className='vertical'>
+            Front View
+            <input type="file" hidden />
+          </Button>
+
+          <Button
+            variant="outlined"
+            component="label"
+            className='vertical'>
+            Heel View
+            <input type="file" hidden />
+          </Button>
+
+          
+        </div>
     </div>
   );
 }
