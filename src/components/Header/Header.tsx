@@ -3,9 +3,12 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface ButtonAppBarProp {
     handleMenuClick: (open:boolean)=> void;
@@ -33,7 +36,10 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title}) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <Button color="inherit">Login</Button>
+          <SearchIcon sx={{marginRight:2}}/>
+          <EditIcon sx={{marginRight:2}}/>
+          <SaveIcon sx={{marginRight:2}}/>
+          <FormatListBulletedIcon />
         </Toolbar>
       </AppBar>
     </Box>

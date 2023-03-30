@@ -19,16 +19,17 @@ const ImageFileInput: React.FC<ImageFileInputProps> = ({label, width,minWidth, i
         variant="outlined"
         component="label"
         sx={{
-          width: {width},
-          minWidth: {minWidth},
+          width: width,
+          minWidth: minWidth,
+          margin:'5px',
         }}>
         <Typography variant="button" display="block" gutterBottom>
           {label}
           <Box
           component="img"
           sx={{
-            width: {imgWidth},
-            minWidth: {imgMinWidth},
+            width: imgWidth,
+            minWidth: imgMinWidth,
           }}
           alt=""
           src={imageSrcProp}

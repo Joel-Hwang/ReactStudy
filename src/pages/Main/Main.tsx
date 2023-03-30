@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 import './Main.css';
-import FiveShot from '../FiveShot'
+import Product from '../Product'
+import ItemList from '../ItemList'
 import TemporaryDrawer from '../../components/TemporaryDrawer';
 import Header from '../../components/Header';
 
@@ -11,7 +12,7 @@ const Main = () => {
   return (
     <div>
       <Header handleMenuClick={setMenuOpen} title={menuName}></Header>
-      <FiveShot></FiveShot>
+      <ItemList></ItemList>
       <TemporaryDrawer 
         openProp={menuOpen} 
         setMenuOpen={setMenuOpen} 
