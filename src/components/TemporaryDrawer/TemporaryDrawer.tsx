@@ -37,7 +37,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen
       sx={{ width: 250 }}
       role="presentation"
     >
-      <List>
+      <List key={"asd"}>
         {['Five Shot', 'PFC'].map((text, index) => (
           <ListItem disablePadding
           onClick={toggleDrawer(anchor, false,text)}
@@ -50,7 +50,7 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen
         ))}
       </List>
       <Divider />
-      <List>
+      <List key={"aqwe"}>
         {['Upper Tooling', 'Bottom Tooling', 'PE Workspace'].map((text, index) => (
           <ListItem disablePadding
             onClick={toggleDrawer(anchor, false,text)}

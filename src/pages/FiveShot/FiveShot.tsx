@@ -7,7 +7,8 @@ import './FiveShot.css';
 
 const FiveShot = () => {
 
-  const [lateralView, setLateralView] = useState("https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2");
+  const [lateralView, setLateralView] = useState("/img/whiteblank.png");
+  const [medialView, setMedialView] = useState("/img/whiteblank.png");
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
   };
@@ -47,60 +48,66 @@ const FiveShot = () => {
           />
         </div>
   );
+
+  const productArea = () => {
+    return (
+      <div>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            </ListItemAvatar>
+            <ListItemText
+              primary="SP24 SPA CFM JORDAN 23E"
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    DN4890-1427945
+                  </Typography><br/>
+                  {" PURE PLATINUM/DUNE RED-BLACK-"}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+        </List>
+      </div>
+    );
+  }
+
+
   return (
     <div className='five-shot'>
         {searchArea()}
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-        </ListItemAvatar>
-        <ListItemText
-          primary="SP24 SPA CFM JORDAN 23E"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                DN4890-1427945
-              </Typography><br/>
-              {" PURE PLATINUM/DUNE RED-BLACK-"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      
-    </List>
-        <div>
+        {productArea()}
+        
+        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent:'center'}}>
           <Button
             variant="outlined"
             component="label"
             sx={{
-              height: 233,
-              width: 330,
-              maxHeight: { xs: 233, md: 167 },
-              maxWidth: { xs: 330, md: 230 },
+              width: 320,
+              minWidth: 260,
             }}>
             <Typography variant="button" display="block" gutterBottom>
               Lateral View
               <Box
               component="img"
               sx={{
-                height: 173,
-                width: 300,
-                maxHeight: { xs: 203, md: 107 },
-                maxWidth: { xs: 300, md: 170 },
+                width: 280,
+                minWidth: 220,
               }}
-              alt="The house from the offer."
+              alt=""
               src={lateralView}
             />
             </Typography>
             
-            <input id="lateralViewFile" type="file" hidden 
+            <input type="file" hidden 
               onChange={
                 (evt)=>{
                   if(evt.target.files && evt.target.files[0]) {
@@ -110,11 +117,18 @@ const FiveShot = () => {
                       setLateralView(imageBlob);
                     }
                     reader.readAsDataURL(evt.target.files[0])
-                }
-
+                  }
                 }
               }/>
           </Button>
+          <ImageFileInput
+            label={"Medial View"} 
+            width={320} 
+            minWidth={260} 
+            imageSrcProp={medialView} 
+            setImageSrc={setMedialView}
+            />
+
 
           <Button
             variant="outlined"
