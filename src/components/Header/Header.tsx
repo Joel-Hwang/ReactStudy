@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,13 +9,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SearchIcon from '@mui/icons-material/Search';
+import Criteria from '../Criteria';
 
 interface ButtonAppBarProp {
     handleMenuClick: (open:boolean)=> void;
     title:string;
 }
 const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title}) => {
-
+  const [criteriaOpen, setCriteriaOpen] = useState(false);
   const clickMenu = () => {
     handleMenuClick(true);
   };
@@ -36,12 +37,13 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title}) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <SearchIcon sx={{marginRight:2}}/>
+          <SearchIcon sx={{marginRight:2}} onClick={()=>{setCriteriaOpen(true);}}/>
           <EditIcon sx={{marginRight:2}}/>
           <SaveIcon sx={{marginRight:2}}/>
           <FormatListBulletedIcon />
         </Toolbar>
       </AppBar>
+      <Criteria openProp={criteriaOpen} setCriteriaOpen={setCriteriaOpen}></Criteria>
     </Box>
   );
 }

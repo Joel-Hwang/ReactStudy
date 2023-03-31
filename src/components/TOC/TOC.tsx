@@ -12,13 +12,13 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 type Anchor = 'left' | 'right';
 
-interface TemporaryDrawerProps {
+interface TOCProps {
   openProp: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   setMenuName: (menuName: string) => void;
 }
 
-const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen, setMenuName }) => {
+const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
 
   const toggleDrawer = (anchor: Anchor, open: boolean, menuname?:string) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -80,4 +80,4 @@ const TemporaryDrawer: React.FC<TemporaryDrawerProps> = ({ openProp, setMenuOpen
   );
 };
 
-export default TemporaryDrawer;
+export default TOC;

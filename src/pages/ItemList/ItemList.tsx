@@ -7,29 +7,12 @@ const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 };
 
-const searchArea = () => (
-    <div style={{marginBottom:30}}>
-    <TextField id="season" name="season" label="Season" variant="standard" onChange={handleInputChange}
-      sx={{width:60,
-          marginRight:1}}/>
-    <TextField id="Round" name="Round" label="Round" variant="standard" onChange={handleInputChange}
-      sx={{width:100,
-          marginRight:1}}/>
-    <TextField id="devStyle" name="devStyle" label="Dev.Style" variant="standard" onChange={handleInputChange}
-      sx={{width:200,
-          marginRight:1}}/>
-
-    <TextField id="colorway" name="colorway" label="Colorway" variant="standard" onChange={handleInputChange}
-      sx={{width:200,
-           marginRight:1}}/>
-    </div>
-);
 
 const list = () =>{
     const result = [];
     for(let i = 0; i<10; i++){
         result.push(
-            <Card sx={{ maxWidth: 345, marginBottom: 3 }} variant='outlined'>
+            <Card sx={{ maxWidth: 345, margin:1 }} variant='outlined'>
               
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -51,8 +34,7 @@ const list = () =>{
 const ItemList = () =>{
     
     return (
-        <div style={{padding:20}}>
-            {searchArea()}
+        <div style={{padding:20, display:'flex', flexWrap:'wrap', justifyContent:'center'}}>
             {list()}
             
 
