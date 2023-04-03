@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { TextField, Paper, Button } from '@mui/material';
 import './Login.css'
 interface LoginProps {
@@ -17,6 +18,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     event.preventDefault();
     // 로그인 처리 코드
     console.log(user);
+    axios.post('http://asdasd.asdasd',user).then(response => {}).catch(error =>{console.log(error);});
     onLogin();
   };
 
