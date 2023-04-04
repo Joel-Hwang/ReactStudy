@@ -12,8 +12,7 @@ const list = () =>{
     const result = [];
     for(let i = 0; i<10; i++){
         result.push(
-            <Card sx={{ maxWidth: 345, margin:1 }} variant='outlined'>
-              
+            <Card sx={{ maxWidth: 345, margin:1 }} variant='outlined' key={i}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   Lizard

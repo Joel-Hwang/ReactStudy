@@ -20,6 +20,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     event.preventDefault();
     // 로그인 처리 코드
     console.log(user);
+    let res = await axios.post('http://localhost:9000/login',
+    {userId:user.username,
+    userPw:util.md5(user.password)});
     await util.getToken(user.username, util.md5(user.password));
     onLogin();
   };

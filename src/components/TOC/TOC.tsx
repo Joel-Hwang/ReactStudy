@@ -37,9 +37,9 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
       sx={{ width: 250 }}
       role="presentation"
     >
-      <List key={"asd"}>
+      <List>
         {['Product', 'PFC'].map((text, index) => (
-          <ListItem disablePadding
+          <ListItem disablePadding key={'a'+index}
           onClick={toggleDrawer(anchor, false,text)}
           onKeyDown={toggleDrawer(anchor, false,text)}>
             <ListItemButton>
@@ -50,9 +50,9 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
         ))}
       </List>
       <Divider />
-      <List key={"aqwe"}>
+      <List>
         {['Upper Tooling', 'Small Tooling', 'PE Workspace'].map((text, index) => (
-          <ListItem disablePadding
+          <ListItem disablePadding key={'b'+index}
             onClick={toggleDrawer(anchor, false,text)}
             onKeyDown={toggleDrawer(anchor, false,text)}>
             <ListItemButton>
