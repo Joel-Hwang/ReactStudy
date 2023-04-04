@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import util from '../../Util';
+
 import { TextField, Paper, Button } from '@mui/material';
 import './Login.css'
 interface LoginProps {
@@ -14,11 +16,11 @@ interface User {
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [user, setUser] = useState<User>({ username: '', password: '' });
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     // 로그인 처리 코드
     console.log(user);
-    axios.post('http://asdasd.asdasd',user).then(response => {}).catch(error =>{console.log(error);});
+    await util.getToken(user.username, util.md5(user.password));
     onLogin();
   };
 
