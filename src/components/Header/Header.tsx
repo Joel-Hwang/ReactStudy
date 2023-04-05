@@ -12,10 +12,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import Criteria from '../Criteria';
 
 interface ButtonAppBarProp {
-    handleMenuClick: (open:boolean)=> void;
+    handleMenuClick: (param:boolean)=> void;
     title:string;
+    mode:string
+    setMode:(param:string) => void;
 }
-const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title}) => {
+const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMode, mode}) => {
   const [criteriaOpen, setCriteriaOpen] = useState(false);
   const clickMenu = () => {
     handleMenuClick(true);

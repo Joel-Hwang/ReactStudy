@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import util from '../../Util';
+import {API,md5, post} from '../../Util';
 
-import { TextField, Paper, Button } from '@mui/material';
+import { TextField, Button, Alert, AlertTitle } from '@mui/material';
 import './Login.css'
 interface LoginProps {
-  onLogin: () => void;
+  setIsLoggedIn: (val:boolean) => void;
 }
 
 interface User {
@@ -13,18 +12,23 @@ interface User {
   password: string;
 }
 
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Login: React.FC<LoginProps> = ({setIsLoggedIn }) => {
   const [user, setUser] = useState<User>({ username: '', password: '' });
-
+  const [showError, setShowError] = useState(false);
+  
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    // 로그인 처리 코드
     console.log(user);
-    let res = await axios.post('http://localhost:9000/login',
-    {userId:user.username,
-    userPw:util.md5(user.password)});
-    await util.getToken(user.username, util.md5(user.password));
-    onLogin();
+    let result = await post(API.LOGIN,{userId:user.username,userPw:md5(user.password)});
+    if(result && result.status == 200){
+      sessionStorage.userId = result.data.userId;
+      sessionStorage.keyed_name = result.data.keyed_name;
+      setShowError(false);
+      setIsLoggedIn(true);
+    }else{
+      setShowError(true);
+      setIsLoggedIn(false);
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +39,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   return (
     <>
     <div className='login-container'>
-      <h2>PLM</h2>
+      <h2>P L M</h2>
       <div className='input-area'>
         <div>
           <TextField
@@ -70,6 +74,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     <div style={ {position:'absolute', bottom:'50px', textAlign:'center', width:'100%'} }>
       <img src="/img/digital_navy_rgb_01_1.png" width={150}/>
     </div>
+    {showError &&
+    <Alert severity="error">
+      <AlertTitle>Error</AlertTitle>
+      Login error — <strong>check your account information!</strong>
+    </Alert>
+    }
     </>
   );
 };

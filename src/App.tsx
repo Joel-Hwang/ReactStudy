@@ -11,13 +11,10 @@ interface User {
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  }
   return (
     <>
       {!isLoggedIn? ( 
-        <Login onLogin={handleLogin} />):( 
+        <Login setIsLoggedIn={setIsLoggedIn} />):( 
         <Main/>)}
      
     </>

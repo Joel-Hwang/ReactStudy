@@ -10,10 +10,16 @@ import Header from '../../components/Header';
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuName, setMenuName] = useState("");
+  //list, detail, edit
+  const [mode, setMode] = useState("list");
 
   return (
     <div>
-      <Header handleMenuClick={setMenuOpen} title={menuName}></Header>
+      <Header 
+        handleMenuClick={setMenuOpen} 
+        title={menuName}
+        setMode={setMode} 
+        mode={mode} />
       <ItemList></ItemList>
       <TOC 
         openProp={menuOpen} 
