@@ -22,6 +22,32 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMod
   const clickMenu = () => {
     handleMenuClick(true);
   };
+
+  const showButtons = (mode:string) => {
+    switch(mode){
+      case "list":
+        return <SearchIcon sx={{marginRight:2}} 
+        onClick={()=>{
+          setCriteriaOpen(true);
+        }}/>
+      case "detail":
+        return <>
+          <EditIcon sx={{marginRight:2}}
+          onClick={()=>{
+            setMode("edit");
+          }}/>
+          <FormatListBulletedIcon />
+          </>
+      case "edit":
+        return <>
+          <SaveIcon sx={{marginRight:2}}
+          onClick={()=>{
+            setMode("detail");
+          }}/>
+          <FormatListBulletedIcon onClick={()=>{setMode("list");}} />
+        </>
+    }
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -39,10 +65,7 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMod
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
-          <SearchIcon sx={{marginRight:2}} onClick={()=>{setCriteriaOpen(true);}}/>
-          <EditIcon sx={{marginRight:2}}/>
-          <SaveIcon sx={{marginRight:2}}/>
-          <FormatListBulletedIcon />
+          {showButtons(mode)}
         </Toolbar>
       </AppBar>
       <Criteria openProp={criteriaOpen} setCriteriaOpen={setCriteriaOpen}></Criteria>

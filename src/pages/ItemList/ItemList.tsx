@@ -7,8 +7,12 @@ const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 };
 
+interface ItemListProp {
+  mode:string
+  setMode:(param:string) => void;
+}
 
-const list = () =>{
+const list = (callback: { (param: string): void; }) => {
     const result = [];
     for(let i = 0; i<10; i++){
         result.push(
@@ -23,18 +27,18 @@ const list = () =>{
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Detail</Button>
+                <Button size="small" onClick={()=>{callback("detail");}}>Detail</Button>
               </CardActions>
             </Card>
         );
     }
     return result;
 }
-const ItemList = () =>{
+const ItemList:React.FC<ItemListProp> = ({setMode, mode}) => {
     
     return (
         <div style={{padding:20, display:'flex', flexWrap:'wrap', justifyContent:'center'}}>
-            {list()}
+            {list(setMode)}
             
 
         </div>

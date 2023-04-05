@@ -20,7 +20,11 @@ const Main = () => {
         title={menuName}
         setMode={setMode} 
         mode={mode} />
-      <ItemList></ItemList>
+
+      <ItemList 
+        setMode={setMode} 
+        mode={mode} />
+      
       <TOC 
         openProp={menuOpen} 
         setMenuOpen={setMenuOpen} 
