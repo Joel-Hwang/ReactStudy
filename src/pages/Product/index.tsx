@@ -1,2 +1,5 @@
-import Product from './Product';
-export default Product;
+import ProductDetail from './ProductDetail';
+import ProductCriteria from './ProductCriteria';
+export {ProductDetail, ProductCriteria} ;
+
+

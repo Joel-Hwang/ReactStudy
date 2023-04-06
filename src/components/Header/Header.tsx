@@ -10,15 +10,26 @@ import SaveIcon from '@mui/icons-material/Save';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SearchIcon from '@mui/icons-material/Search';
 import Criteria from '../Criteria';
-
-interface ButtonAppBarProp {
+import {ProductCriteria} from '../../pages/Product';
+interface HeaderProp {
     handleMenuClick: (param:boolean)=> void;
     title:string;
     mode:string
     setMode:(param:string) => void;
+    itemType:string
+    setItemType:(param:string) => void;
 }
-const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMode, mode}) => {
+
+const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, itemType, setItemType}) => {
   const [criteriaOpen, setCriteriaOpen] = useState(false);
+  
+  
+  const criteriaItem:{[key:string]:any} = {
+    "Product":ProductCriteria,
+    "CS_PFC":Criteria,
+    "":Criteria,
+  }
+  
   const clickMenu = () => {
     handleMenuClick(true);
   };
@@ -36,7 +47,7 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMod
           onClick={()=>{
             setMode("edit");
           }}/>
-          <FormatListBulletedIcon />
+          <FormatListBulletedIcon onClick={()=>{setMode("list");}}/>
           </>
       case "edit":
         return <>
@@ -68,8 +79,8 @@ const ButtonAppBar:React.FC<ButtonAppBarProp> = ({handleMenuClick, title, setMod
           {showButtons(mode)}
         </Toolbar>
       </AppBar>
-      <Criteria openProp={criteriaOpen} setCriteriaOpen={setCriteriaOpen}></Criteria>
+      {React.createElement(criteriaItem[itemType],{openProp:criteriaOpen, setCriteriaOpen:setCriteriaOpen})}
     </Box>
   );
 }
-export default ButtonAppBar;
+export default Header;

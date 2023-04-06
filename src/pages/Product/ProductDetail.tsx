@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Divider  } from '@mui/material';
 import ImageFileInput from '../../components/ImageFileInput';
-import './Product.css';
+import './ProductDetail.css';
 
 
-const Product = () => {
+const ProductDetail = () => {
 
   const [lateralView, setLateralView] = useState("/img/whiteblank.png");
   const [medialView, setMedialView] = useState("/img/whiteblank.png");
@@ -96,4 +96,4 @@ const Product = () => {
   );
 }
 
-export default Product;
+export default ProductDetail;

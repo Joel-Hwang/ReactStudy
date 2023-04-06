@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 
 import './Main.css';
-import Product from '../Product'
 import ItemList from '../ItemList'
 import TOC from '../../components/TOC';
 import Header from '../../components/Header';
@@ -10,6 +9,7 @@ import Header from '../../components/Header';
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuName, setMenuName] = useState("");
+  const [itemType, setItemType] = useState("");
   //list, detail, edit
   const [mode, setMode] = useState("list");
 
@@ -18,8 +18,11 @@ const Main = () => {
       <Header 
         handleMenuClick={setMenuOpen} 
         title={menuName}
+        mode={mode} 
         setMode={setMode} 
-        mode={mode} />
+        itemType={itemType} 
+        setItemType={setItemType} 
+        />
 
       <ItemList 
         setMode={setMode} 
@@ -28,7 +31,9 @@ const Main = () => {
       <TOC 
         openProp={menuOpen} 
         setMenuOpen={setMenuOpen} 
-        setMenuName={setMenuName} />
+        setMenuName={setMenuName} 
+        setItemType={setItemType}
+        />
     </div>
   );
 };

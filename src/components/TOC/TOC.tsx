@@ -16,11 +16,20 @@ interface TOCProps {
   openProp: boolean;
   setMenuOpen: (menuOpen: boolean) => void;
   setMenuName: (menuName: string) => void;
+  setItemType: (itemType: string) => void;
 }
 
-const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
+const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName, setItemType }) => {
 
-  const toggleDrawer = (anchor: Anchor, open: boolean, menuname?:string) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  const menuList = [
+    ["Product","Product"],
+    ["PFC","CS_PFC"],
+    ["",""],
+    ["PE Workspace","CS_PE_WS"],
+    ["PE Purchase","CS_PE_PUR"],
+  ];
+
+  const toggleDrawer = (anchor: Anchor, open: boolean, menuname?:string, itemTypeName?:string) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' ||
@@ -29,7 +38,10 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
       return;
     }
     setMenuOpen(open);
-    if(menuname) setMenuName(menuname);
+    if(menuname && itemTypeName){
+      setMenuName(menuname);
+      setItemType(itemTypeName);
+    }
   };
 
   const list = (anchor: Anchor) => (
@@ -38,30 +50,19 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName }) => {
       role="presentation"
     >
       <List>
-        {['Product', 'PFC'].map((text, index) => (
+        {menuList.map((text,index)=>(text[0] ==='')?(<Divider />):(
           <ListItem disablePadding key={'a'+index}
-          onClick={toggleDrawer(anchor, false,text)}
-          onKeyDown={toggleDrawer(anchor, false,text)}>
+          onClick={toggleDrawer(anchor, false,text[0], text[1])}
+          onKeyDown={toggleDrawer(anchor, false,text[0], text[1])}>
             <ListItemButton>
               <ListItemIcon> <ArrowRightIcon/> </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text[0]} />
             </ListItemButton>
           </ListItem>
         ))}
+
       </List>
-      <Divider />
-      <List>
-        {['Upper Tooling', 'Small Tooling', 'PE Workspace'].map((text, index) => (
-          <ListItem disablePadding key={'b'+index}
-            onClick={toggleDrawer(anchor, false,text)}
-            onKeyDown={toggleDrawer(anchor, false,text)}>
-            <ListItemButton>
-              <ListItemIcon><ArrowRightIcon/></ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      
     </Box>
   );
   return (

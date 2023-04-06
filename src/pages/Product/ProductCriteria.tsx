@@ -10,7 +10,7 @@ interface CriteriaProps {
     setCriteriaOpen: (criteriaOpen: boolean) => void;
   }
 
-const Criteria: React.FC<CriteriaProps> = ({openProp, setCriteriaOpen}) => {
+const ProductCriteria: React.FC<CriteriaProps> = ({openProp, setCriteriaOpen}) => {
 
   const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -25,26 +25,23 @@ const Criteria: React.FC<CriteriaProps> = ({openProp, setCriteriaOpen}) => {
 
   const list = (anchor: Anchor) => (
     <>
-    <Button size="small" style={{margin:10}}>Search</Button>  
-    <Box
-      
-      role="presentation">
-      
+    <Button size="small" style={{margin:10}} variant="contained"
+      onClick={(evt)=>{
+        alert('asdasd');
+      }}>Search</Button>  
+    <Box role="presentation">
       <div style={{margin:20, marginBottom:30}}>
-    <TextField id="season" name="season" label="Season" variant="standard" 
-      sx={{width:60,
-          marginRight:1}}/>
-    <TextField id="Round" name="Round" label="Round" variant="standard" 
-      sx={{width:100,
-          marginRight:1}}/>
-    <TextField id="devStyle" name="devStyle" label="Dev.Style" variant="standard" 
-      sx={{width:200,
-          marginRight:1}}/>
-
-    <TextField id="colorway" name="colorway" label="Colorway" variant="standard" 
-      sx={{width:200,
-           marginRight:1}}/>
-    </div>
+        <TextField id="_factory" name="_factory" label="Factory" variant="standard" 
+          sx={{width:60, marginRight:1}}/>
+        <TextField id="_season_cd" name="_season_cd" label="Season" variant="standard" 
+          sx={{width:60, marginRight:1}}/>
+        <TextField id="_st_cd" name="_st_cd" label="Sample Type" variant="standard" 
+          sx={{width:100, marginRight:1}}/>
+        <TextField id="_dev_style_number" name="_dev_style_number" label="Dev.Style#" variant="standard" 
+          sx={{width:200, marginRight:1}}/>
+        <TextField id="_dev_colorway_id" name="_dev_colorway_id" label="Colorway" variant="standard" 
+          sx={{width:200, marginRight:1}}/>
+      </div>
     </Box>
     </>
   );
@@ -64,4 +61,4 @@ const Criteria: React.FC<CriteriaProps> = ({openProp, setCriteriaOpen}) => {
   );
 };
 
-export default Criteria;
+export default ProductCriteria;
