@@ -5,15 +5,23 @@ import ItemList from '../ItemList'
 import TOC from '../../components/TOC';
 import Header from '../../components/Header';
 import {ProductList,ProductDetail, ProductEdit} from '../../pages/Product';
-
+interface EditRef {
+  saveData: () => void;
+}
 const Main = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuName, setMenuName] = useState("");
   const [itemType, setItemType] = useState("");
   const [itemId, setItemId] = useState("");
+  const [itemData, setItemData] = useState<any>();
   const [itemList, setItemList] = useState<Array<any>>([]);
   //list, detail, edit
   const [mode, setMode] = useState("list");
+  const editRef = useRef<EditRef>(null);
+
+  const handleSave = () => {
+      editRef.current?.saveData();
+  };
 
   const listView:{[key:string]:any} = {
     "Product":ProductList,
@@ -39,13 +47,14 @@ const Main = () => {
       case "detail":
         return React.createElement(detailView[itemType],{itemId:itemId})
         case "edit":
-          return React.createElement(editView[itemType],{setMode:setMode, mode:mode, itemId:itemId})
+          return React.createElement(editView[itemType],{setMode:setMode, mode:mode, itemId:itemId, ref:editRef})
     }
   }
   return (
     <div>
       <Header 
         handleMenuClick={setMenuOpen} 
+        handleSave={handleSave}
         title={menuName}
         mode={mode} 
         setMode={setMode} 

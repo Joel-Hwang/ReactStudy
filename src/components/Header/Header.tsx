@@ -13,6 +13,7 @@ import Criteria from '../Criteria';
 import {ProductCriteria} from '../../pages/Product';
 interface HeaderProp {
     handleMenuClick: (param:boolean)=> void;
+    handleSave: ()=>void;
     title:string;
     mode:string
     setMode:(param:string) => void;
@@ -21,7 +22,7 @@ interface HeaderProp {
     setItemList:(param:Array<object>) => void;
 }
 
-const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, itemType, setItemType, setItemList, }) => {
+const Header:React.FC<HeaderProp> = ({handleMenuClick,handleSave, title, mode,setMode, itemType, setItemType, setItemList, }) => {
   const [criteriaOpen, setCriteriaOpen] = useState(false);
   
   
@@ -55,6 +56,8 @@ const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, item
           <SaveIcon sx={{marginRight:2}}
           onClick={()=>{
             setMode("detail");
+            handleSave();
+
           }}/>
           <FormatListBulletedIcon onClick={()=>{setMode("list");}} />
         </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Card, CardContent  } from '@mui/material';
 import ImageFileInput from '../../components/ImageFileInput';
 import {API,get} from '../../Util';
@@ -8,7 +8,11 @@ interface ProductEditProp {
   itemId:string
 }
 
-const ProductEdit:React.FC<ProductEditProp> = ({itemId}) => {
+interface EditRef {
+  saveData: () => void;
+}
+
+const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
   
   const [lateralView, setLateralView] = useState("/img/whiteblank.png");
   const [medialView, setMedialView] = useState("/img/whiteblank.png");
@@ -16,27 +20,28 @@ const ProductEdit:React.FC<ProductEditProp> = ({itemId}) => {
   const [frontView, setFrontView] = useState("/img/whiteblank.png");
   const [heelView, setHeelView] = useState("/img/whiteblank.png");
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-  };
-
   const [detailData,setDetailData] = useState<any>({_factory:""});
   React.useEffect(() => {
     async function fetchData() {
       // 비동기 작업 수행
       // 컴포넌트가 마운트된 후에 실행할 코드
-      let result = await get(`${API.DETAIL}/Product/${itemId}`);
+      let result = await get(`${API.DETAIL}/Product/${props?.itemId}`);
       console.log(result);
     
       if(result && result.status == 200){
         setDetailData(result.data.data);
-        //setItemList(result.data.data.value);
       }else{
         //setItemList([]);
       }
     }
     fetchData();
   }, []);
+
+  React.useImperativeHandle(ref, () => ({
+    saveData: () => {
+      console.log('ProductEdit method called');
+    }
+  }));
 
   const productArea = () => {
     return (
@@ -144,6 +149,6 @@ const ProductEdit:React.FC<ProductEditProp> = ({itemId}) => {
         </div>
     </div>
   );
-}
+});
 
 export default ProductEdit;
