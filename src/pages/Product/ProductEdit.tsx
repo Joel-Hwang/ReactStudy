@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle } from 'react';
 import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Card, CardContent  } from '@mui/material';
 import ImageFileInput from '../../components/ImageFileInput';
-import {API,get} from '../../Util';
+import {API,get, multipart} from '../../Util';
 import './ProductDetail.css';
 
 interface ProductEditProp {
@@ -38,8 +38,15 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
   }, []);
 
   React.useImperativeHandle(ref, () => ({
-    saveData: () => {
+    saveData: async () => {
       console.log('ProductEdit method called');
+      let result = await multipart(API.EDIT,{id:props.itemId,
+        _lateral_view:lateralView,
+        _medial_view:medialView,
+        _bottom_view:bottomView,
+        _front_view:frontView,
+        _heel_view:heelView,
+      });
     }
   }));
 
