@@ -11,9 +11,11 @@ let databaseName = "DigitalPCC_Test";
 
 const BASE_URL = "http://localhost:9000";
 const API = {
+  LIST:`${BASE_URL}/list`,
+  DETAIL:`${BASE_URL}/detail`,
   LOGIN: `${BASE_URL}/login`,
   LOGOUT: `${BASE_URL}/logout`,
-  CRITERIA: `${BASE_URL}/criteria`,
+  PRODUCT: `${BASE_URL}/criteria`,
 };
 
 function md5(str:string): string{
@@ -24,7 +26,7 @@ function md5(str:string): string{
 
 async function post(url: string, body?:object, header?: object){
   try{
-      let res = await axios.post(url, body, header);
+      let res = await axios.post(url, body, {...header,withCredentials:true});
       return res;
   }catch(e : any){
       return {status:e.response.status, data:e.response.data};
@@ -33,4 +35,16 @@ async function post(url: string, body?:object, header?: object){
   }
 }
 
-export {md5,API,post};
+async function get(url: string, param?:object){
+  try{
+      url  = url+ '?param='+JSON.stringify(param);
+      let res = await axios.get(url, { withCredentials:true, });
+      return res;
+  }catch(e : any){
+      return {status:e.response.status, data:e.response.data};
+  }finally{
+
+  }
+}
+
+export {md5,API,post,get};

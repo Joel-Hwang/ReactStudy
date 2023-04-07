@@ -18,9 +18,10 @@ interface HeaderProp {
     setMode:(param:string) => void;
     itemType:string
     setItemType:(param:string) => void;
+    setItemList:(param:Array<object>) => void;
 }
 
-const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, itemType, setItemType}) => {
+const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, itemType, setItemType, setItemList, }) => {
   const [criteriaOpen, setCriteriaOpen] = useState(false);
   
   
@@ -79,7 +80,7 @@ const Header:React.FC<HeaderProp> = ({handleMenuClick, title, mode,setMode, item
           {showButtons(mode)}
         </Toolbar>
       </AppBar>
-      {React.createElement(criteriaItem[itemType],{openProp:criteriaOpen, setCriteriaOpen:setCriteriaOpen})}
+      {React.createElement(criteriaItem[itemType],{openProp:criteriaOpen, setCriteriaOpen:setCriteriaOpen, setItemList:setItemList})}
     </Box>
   );
 }

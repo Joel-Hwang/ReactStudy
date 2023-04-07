@@ -4,13 +4,22 @@ import ImageFileInput from '../../components/ImageFileInput';
 import {API,get} from '../../Util';
 import './ProductDetail.css';
 
-interface ProductDetailProp {
+interface ProductEditProp {
   itemId:string
 }
 
-
-const ProductDetail:React.FC<ProductDetailProp> = ({itemId}) => {
+const ProductEdit:React.FC<ProductEditProp> = ({itemId}) => {
   
+  const [lateralView, setLateralView] = useState("/img/whiteblank.png");
+  const [medialView, setMedialView] = useState("/img/whiteblank.png");
+  const [bottomView, setBottomView] = useState("/img/whiteblank.png");
+  const [frontView, setFrontView] = useState("/img/whiteblank.png");
+  const [heelView, setHeelView] = useState("/img/whiteblank.png");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+  };
+
   const [detailData,setDetailData] = useState<any>({_factory:""});
   React.useEffect(() => {
     async function fetchData() {
@@ -93,11 +102,48 @@ const ProductDetail:React.FC<ProductDetailProp> = ({itemId}) => {
         {productArea()}
         
         <div style={{display: 'flex', flexWrap: 'wrap', justifyContent:'center'}}>
-        
+        <ImageFileInput
+            label={"Lateral View"} 
+            width={220} 
+            minWidth={100} 
+            imageSrcProp={lateralView} 
+            setImageSrc={setLateralView}
+        />
+        <ImageFileInput
+          label={"Medial View"} 
+          width={220} 
+          minWidth={100} 
+          imageSrcProp={medialView} 
+          setImageSrc={setMedialView}
+        />
+
+        <ImageFileInput
+          label={"Bottom View"} 
+          width={220} 
+          minWidth={100} 
+          imageSrcProp={bottomView} 
+          setImageSrc={setBottomView}
+        />
+
+        <ImageFileInput
+          label={"Front View"} 
+          width={220} 
+          minWidth={100} 
+          imageSrcProp={frontView} 
+          setImageSrc={setFrontView}
+        />
+
+        <ImageFileInput
+          label={"Heel View"} 
+          width={220} 
+          minWidth={100} 
+          imageSrcProp={heelView} 
+          setImageSrc={setHeelView}
+        />
 
         </div>
     </div>
   );
 }
 
-export default ProductDetail;
+export default ProductEdit;

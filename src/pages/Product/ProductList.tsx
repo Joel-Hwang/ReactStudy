@@ -1,49 +1,49 @@
 import React, { useState } from 'react';
-import {TextField,Button, Card, CardActions , CardContent , CardMedia ,Typography  } from '@mui/material';
-import './ItemList.css';
-import { padding } from '@mui/system';
+import {Button, Card, CardActions , CardContent , Typography  } from '@mui/material';
 
-const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-};
 
-interface ItemListProp {
+
+interface ProductListProp {
   mode:string
   setMode:(param:string) => void;
   itemList: Array<any>
+  setItemId:(param:string) => void;
+
 }
 
-const list = (callback: { (param: string): void; }, itemList: Array<any>) => {
+const list = (setModeCallback: { (param: string): void; }, itemList: Array<any>, setItemIdCallback: { (param: string): void; }) => {
     const result = [];
     for(let i = 0; i<itemList.length; i++){
         result.push(
             <Card sx={{ maxWidth: 345, margin:1 }} variant='outlined' key={i}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  Lizard
+                    {itemList[i].keyed_name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Lizards are a widespread group of squamate reptiles, with over 6,000
-                  species, ranging across all continents except Antarctica
+                    {itemList[i]._season_cd}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" onClick={()=>{callback("detail");}}>Detail</Button>
+                <Button size="small" onClick={()=>{
+                    setModeCallback("detail");
+                    setItemIdCallback(itemList[i].id)
+                }}>Detail</Button>
               </CardActions>
             </Card>
         );
     }
     return result;
 }
-const ItemList:React.FC<ItemListProp> = ({setMode, mode, itemList}) => {
+const ProductList:React.FC<ProductListProp> = ({setMode, mode, itemList, setItemId}) => {
     
     return (
         <div style={{padding:20, display:'flex', flexWrap:'wrap', justifyContent:'center'}}>
-            {list(setMode, itemList)}
+            {list(setMode, itemList, setItemId)}
             
 
         </div>
       );
 };
 
-export default ItemList;
+export default ProductList;

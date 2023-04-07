@@ -19,7 +19,7 @@ const Login: React.FC<LoginProps> = ({setIsLoggedIn }) => {
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     console.log(user);
-    /*let result = await post(API.LOGIN,{userId:user.username,userPw:md5(user.password)});
+    let result = await post(API.LOGIN,{userId:user.username,userPw:md5(user.password)});
     if(result && result.status == 200){
       sessionStorage.userId = result.data.userId;
       sessionStorage.keyed_name = result.data.keyed_name;
@@ -28,9 +28,9 @@ const Login: React.FC<LoginProps> = ({setIsLoggedIn }) => {
     }else{
       setShowError(true);
       setIsLoggedIn(false);
-    }*/
+    }
     //로그인 그냥 패스
-    setIsLoggedIn(true);
+    //setIsLoggedIn(true);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
