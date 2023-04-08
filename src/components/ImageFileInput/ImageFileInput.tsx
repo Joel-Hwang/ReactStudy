@@ -8,9 +8,10 @@ interface ImageFileInputProps {
     minWidth:number;
     imageSrcProp:string;
     setImageSrc:(src:string) => void;
+    setFile:(file:File) => void;
   }
 
-const ImageFileInput: React.FC<ImageFileInputProps> = ({label, width,minWidth, imageSrcProp, setImageSrc}) => {
+const ImageFileInput: React.FC<ImageFileInputProps> = ({label, width,minWidth, imageSrcProp, setImageSrc, setFile}) => {
   let imgWidth = width-40;
   let imgMinWidth = minWidth-40;
   return (
@@ -40,6 +41,7 @@ const ImageFileInput: React.FC<ImageFileInputProps> = ({label, width,minWidth, i
           onChange={
             (evt)=>{
               if(evt.target.files && evt.target.files[0]) {
+                setFile(evt.target.files[0]);
                 const reader = new FileReader()
                 reader.onload = e => {
                   let imageBlob:string = e.target?.result as string;

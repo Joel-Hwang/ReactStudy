@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle } from 'react';
 import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Card, CardContent  } from '@mui/material';
 import ImageFileInput from '../../components/ImageFileInput';
-import {API,get, multipart} from '../../Util';
+import {API,get, fileupload} from '../../Util';
 import './ProductDetail.css';
 
 interface ProductEditProp {
@@ -15,10 +15,15 @@ interface EditRef {
 const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
   
   const [lateralView, setLateralView] = useState("/img/whiteblank.png");
+  const [lateralFile, setLateralFile] = useState<File>();
   const [medialView, setMedialView] = useState("/img/whiteblank.png");
+  const [medialFile, setMedialFile] = useState<File>();
   const [bottomView, setBottomView] = useState("/img/whiteblank.png");
+  const [bottomFile, setBottomFile] = useState<File>();
   const [frontView, setFrontView] = useState("/img/whiteblank.png");
+  const [frontFile, setFrontFile] = useState<File>();
   const [heelView, setHeelView] = useState("/img/whiteblank.png");
+  const [heelFile, setHeelFile] = useState<File>();
 
   const [detailData,setDetailData] = useState<any>({_factory:""});
   React.useEffect(() => {
@@ -40,13 +45,11 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
   React.useImperativeHandle(ref, () => ({
     saveData: async () => {
       console.log('ProductEdit method called');
-      let result = await multipart(API.EDIT,{id:props.itemId,
-        _lateral_view:lateralView,
-        _medial_view:medialView,
-        _bottom_view:bottomView,
-        _front_view:frontView,
-        _heel_view:heelView,
-      });
+      let lateralFileId = await fileupload(lateralFile);
+      let medialFileId = await fileupload(medialFile);
+      let bottomFileId = await fileupload(bottomFile);
+      let frontFileId = await fileupload(frontFile);
+      let heelFileId = await fileupload(heelFile);
     }
   }));
 
@@ -120,6 +123,7 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
             minWidth={100} 
             imageSrcProp={lateralView} 
             setImageSrc={setLateralView}
+            setFile={setLateralFile}
         />
         <ImageFileInput
           label={"Medial View"} 
@@ -127,6 +131,7 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
           minWidth={100} 
           imageSrcProp={medialView} 
           setImageSrc={setMedialView}
+          setFile={setMedialFile}
         />
 
         <ImageFileInput
@@ -135,6 +140,7 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
           minWidth={100} 
           imageSrcProp={bottomView} 
           setImageSrc={setBottomView}
+          setFile={setBottomFile}
         />
 
         <ImageFileInput
@@ -143,6 +149,7 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
           minWidth={100} 
           imageSrcProp={frontView} 
           setImageSrc={setFrontView}
+          setFile={setFrontFile}
         />
 
         <ImageFileInput
@@ -151,6 +158,7 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
           minWidth={100} 
           imageSrcProp={heelView} 
           setImageSrc={setHeelView}
+          setFile={setHeelFile}
         />
 
         </div>
