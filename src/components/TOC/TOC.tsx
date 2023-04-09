@@ -27,6 +27,7 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName, setItemTy
     ["",""],
     ["PE Workspace","CS_PE_WS"],
     ["PE Purchase","CS_PE_PUR"],
+    ["ToolingReceive","ToolingReceive"]
   ];
 
   const toggleDrawer = (anchor: Anchor, open: boolean, menuname?:string, itemTypeName?:string) => (event: React.KeyboardEvent | React.MouseEvent) => {

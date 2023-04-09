@@ -6,6 +6,7 @@ import TOC from '../../components/TOC';
 import Header from '../../components/Header';
 import {ProductList,ProductDetail, ProductEdit} from '../../pages/Product';
 import {PfcList,PfcDetail} from '../../pages/PFC';
+import {ToolingReceive} from '../../pages/ToolingReceive';
 interface EditRef {
   saveData: () => void;
 }
@@ -27,6 +28,7 @@ const Main = () => {
   const listView:{[key:string]:any} = {
     "Product":ProductList,
     "CS_PFC":PfcList,
+    "ToolingReceive": ToolingReceive,
     "":ItemList,
   }
 
