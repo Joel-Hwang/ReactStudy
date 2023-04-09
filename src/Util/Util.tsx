@@ -18,6 +18,7 @@ const API = {
   LOGIN: `${BASE_URL}/login`,
   LOGOUT: `${BASE_URL}/logout`,
   PRODUCT: `${BASE_URL}/criteria`,
+  DOWNLOAD: `${BASE_URL}/download`,
 };
 
 function md5(str:string): string{

@@ -11,6 +11,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import SearchIcon from '@mui/icons-material/Search';
 import Criteria from '../Criteria';
 import {ProductCriteria} from '../../pages/Product';
+import {PfcCriteria} from '../../pages/PFC';
 interface HeaderProp {
     handleMenuClick: (param:boolean)=> void;
     handleSave: ()=>void;
@@ -28,7 +29,7 @@ const Header:React.FC<HeaderProp> = ({handleMenuClick,handleSave, title, mode,se
   
   const criteriaItem:{[key:string]:any} = {
     "Product":ProductCriteria,
-    "CS_PFC":Criteria,
+    "CS_PFC":PfcCriteria,
     "":Criteria,
   }
   
