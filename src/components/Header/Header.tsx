@@ -56,8 +56,8 @@ const Header:React.FC<HeaderProp> = ({handleMenuClick,handleSave, title, mode,se
         return <>
           <SaveIcon sx={{marginRight:2}}
           onClick={()=>{
-            setMode("detail");
             handleSave();
+            setMode("detail");
 
           }}/>
           <FormatListBulletedIcon onClick={()=>{setMode("list");}} />

@@ -10,11 +10,11 @@ let databaseName = "DigitalPCC_Test";
 //global.databaseName = "InnovatorSolutions";
 const VAULT_URL = "http://203.228.101.197/digitalpcc/vault/odata";
 const SERVER_URL = "http://203.228.101.197/digitalpcc/Server/odata";
-const BASE_URL = "http://localhost:9000";
+const BASE_URL = "http://203.228.117.46:9000";
 const API = {
   LIST:`${BASE_URL}/list`,
   DETAIL:`${BASE_URL}/detail`,
-  EDIT:`${BASE_URL}/edit`,
+  UPDATE:`${BASE_URL}/update`,
   LOGIN: `${BASE_URL}/login`,
   LOGOUT: `${BASE_URL}/logout`,
   PRODUCT: `${BASE_URL}/criteria`,
@@ -37,6 +37,7 @@ async function post(url: string, body?:object, header?: object){
 
   }
 }
+
 
 async function postString(url: string, body:string, header?: object){
   try{
@@ -62,19 +63,15 @@ async function get(url: string, param?:object){
 }
 
 async function fileupload(file?: File){
-  if(file == null) return '';
-  try{
+  if(file == null) return '';  try{
     
       //transaction 날리고
       let transaction:any = await get(BASE_URL+'/transaction');
       let file_id = generateNewGuid();
       var upload_res = await uploadFile(file, file_id, transaction.data.id, transaction.data.token);
       var commit_res = await commitTransaction(file, file_id, transaction.data.id, transaction.data.token);
-      var commit_str = commit_res.toString();
-      commit_str = commit_str.substring(commit_str.indexOf("{"), commit_str.lastIndexOf("}") + 1);
-      var commit_obj = JSON.parse(commit_str);
-      console.log(commit_obj);
-      return commit_obj.id;
+      if(commit_res.status == 200) return file_id;
+      return '';
   }catch(e : any){
       return '';
   }finally{
@@ -97,28 +94,28 @@ function generateNewGuid() {
 }
 
 async function uploadFile(file: File, file_id: string, transaction_id: string, token: string, chunk_size = 1000000) {
-  var results = [];
-  var size = file.size;
-  var start = 0;
-  var end = 0;
+  let results = [];
+  let size = file.size;
+  let start = 0;
+  let end = 0;
 
   while (end < size - 1) {
-      var end = start + chunk_size;
+      end = start + chunk_size;
       if (size - end < 0) {
           end = size;
       }
 
       // get an array of headers for this upload request
-      var headers = getUploadHeaders(escapeURL(file.name), start, end - 1, size, transaction_id, token);
+      let headers = getUploadHeaders(escapeURL(file.name), start, end - 1, size, transaction_id, token);
 
       // make the request to upload this file content
-      var upload_url = VAULT_URL+"/vault.UploadFile?fileId=" + file_id;
-      var chunk = file.slice(start, end);
+      let upload_url = VAULT_URL+"/vault.UploadFile?fileId=" + file_id;
+      let chunk = file.slice(start, end);
 
-      const data = new FormData();
-      data.append('file', chunk, file.name);
-
-      var response = await post(upload_url, data, headers);
+      //const data = new FormData();
+      //data.append('file', chunk, file.name);
+      let response = await axios.post(upload_url, chunk, {headers:headers});
+      //var response = await post(upload_url, data, headers);
       results.push(response);
 
       start += chunk_size;
@@ -147,7 +144,7 @@ function escapeURL(url: string) {
 
 function getUploadHeaders(escaped_name: string, start_range: number, end_range: number, file_size: number, transaction_id: string, token: string) {
   // start the upload headers array with a clone of the auth_headers array
-  var headers = {
+  let headers = {
       "authorization": "Bearer " + token,
       "Content-Disposition": "attachment;filename*=utf-8''" + escaped_name,
       "Content-Range": "bytes " + start_range + "-" + end_range + "/" + file_size,
@@ -186,7 +183,8 @@ async function commitTransaction(file: File, file_id: string, transaction_id: st
   commit_body += "--" + boundary + "--";
 
   // send the commit request to the vault server
-  var result = await postString("POST", commit_body, commit_headers);
+  let result = await axios.post(commit_url, commit_body, {headers:commit_headers});
+  //var result = await postString("POST", commit_body, commit_headers);
   return result;
 }
 

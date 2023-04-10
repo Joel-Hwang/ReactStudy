@@ -46,8 +46,9 @@ const PfcDetail:React.FC<DetailProp> = ({itemId}) => {
         <Button size="small" style={{margin:'auto', marginTop:10, width:'100%', maxWidth:300}} variant="contained"
           onClick={async (event)=>{
             event.preventDefault();
+            if(!detailData.hasOwnProperty("_pdf@aras.id"))
+              return;
             let result = await get(`${API.DOWNLOAD}/${detailData["_pdf@aras.id"]}`);
-            console.log(result)
             if(result && result.data.status == 200){
               window.open(result.data.data);
               //setItemList(result.data.data.value);

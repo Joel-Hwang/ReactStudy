@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle } from 'react';
 import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Card, CardContent  } from '@mui/material';
 import ImageFileInput from '../../components/ImageFileInput';
-import {API,get, fileupload} from '../../Util';
+import {API,get, post,fileupload} from '../../Util';
 import './ProductDetail.css';
 
 interface ProductEditProp {
@@ -50,6 +50,19 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
       let bottomFileId = await fileupload(bottomFile);
       let frontFileId = await fileupload(frontFile);
       let heelFileId = await fileupload(heelFile);
+      let body:any = {};
+      body.id = props?.itemId;
+      if(lateralFileId != "") body._lateral_view = `vault:///?fileId=${lateralFileId}`;
+      if(medialFileId != "") body._medial_view = `vault:///?fileId=${medialFileId}`;
+      if(bottomFileId != "") body._bottom_view = `vault:///?fileId=${bottomFileId}`;
+      if(frontFileId != "") body._front_view = `vault:///?fileId=${frontFileId}`;
+      if(heelFileId != "") body._heel_view = `vault:///?fileId=${heelFileId}`;
+      let result = await post(`${API.UPDATE}/Product`,body);
+      if(result && result.status == 200){
+       // setItemList(result.data.data.value);
+      }else{
+        //setItemList([]);
+      }
     }
   }));
 
