@@ -35,6 +35,18 @@ const ProductEdit = React.forwardRef<EditRef, ProductEditProp>((props,ref) => {
     
       if(result && result.status == 200){
         setDetailData(result.data.data);
+        setLateralView((await get(API.DOWNLOAD+"/"+result.data.data._lateral_view.replace('vault:///?fileId=',''))).data.data);
+        setMedialView((await get(API.DOWNLOAD+"/"+result.data.data._medial_view.replace('vault:///?fileId=',''))).data.data);
+        setBottomView((await get(API.DOWNLOAD+"/"+result.data.data._bottom_view.replace('vault:///?fileId=',''))).data.data);
+        setFrontView((await get(API.DOWNLOAD+"/"+result.data.data._front_view.replace('vault:///?fileId=',''))).data.data);
+        setHeelView((await get(API.DOWNLOAD+"/"+result.data.data._heel_view.replace('vault:///?fileId=',''))).data.data);
+
+        /*setImages([{key:'_lateral_view', src:( }
+        ,{key:'_medial_view', src:(await get(API.DOWNLOAD+"/"+result.data.data._medial_view.replace('vault:///?fileId=',''))).data.data }
+        ,{key:'_bottom_view', src:(await get(API.DOWNLOAD+"/"+result.data.data._bottom_view.replace('vault:///?fileId=',''))).data.data }
+        ,{key:'_heel_view', src:(await get(API.DOWNLOAD+"/"+result.data.data._heel_view.replace('vault:///?fileId=',''))).data.data }
+        ,{key:'_front_view', src:(await get(API.DOWNLOAD+"/"+result.data.data._front_view.replace('vault:///?fileId=',''))).data.data }]);*/
+
       }else{
         //setItemList([]);
       }

@@ -1,17 +1,23 @@
 import React, { useState, useEffect  } from 'react';
-import {TextField,Button, Box, List, ListItem, Paper, ListItemAvatar, Avatar, ListItemText,Typography, Card, CardContent  } from '@mui/material';
-import { border } from '@mui/system';
+import {Alert, AlertTitle  } from '@mui/material';
+
+interface ListProp {
+  mode:string
+  setMode:(param:string) => void;
+  itemList: Array<any>
+  setItemId:(param:string) => void;
+
+}
 
 
-
-
-const ToolingReceive = () => {
+const ToolingReceive:React.FC<ListProp> = ({setMode, mode, itemList, setItemId}) => {
   const[ scanned, setScanned] = useState<string[]>([]);
+  const[scanData, setScanData] = useState("");
   React.useEffect(() => {
     const receiveMessage = (event:MessageEvent) => {
         // 이벤트 수신 함수 구현
         setScanned([...scanned,event.data.data]);
-        alert("Received message:"+ event.data.data);
+        setScanData(event.data.data);
       }
   
       window.addEventListener("message", receiveMessage, false);
@@ -31,8 +37,11 @@ const ToolingReceive = () => {
 
   return (
     <>
-        <iframe src="/barcode" width="200px" height="270px" style={{border:'none'}}></iframe>
-        {scannedDiv()}
+        <iframe title='barcodeIframe' src="/barcode" width="200px" height="270px" style={{border:'none',position:'absolute',bottom:'0', left:'50%', transform: 'translateX(-50%)'}}></iframe>
+          <Alert severity="error">
+            <AlertTitle>scanData</AlertTitle>
+            <strong>{scanData}</strong>
+          </Alert>
     </>
   );
 }

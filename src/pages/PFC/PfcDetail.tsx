@@ -50,7 +50,13 @@ const PfcDetail:React.FC<DetailProp> = ({itemId}) => {
               return;
             let result = await get(`${API.DOWNLOAD}/${detailData["_pdf@aras.id"]}`);
             if(result && result.data.status == 200){
-              window.open(result.data.data);
+              const link = document.createElement('a');
+              link.href = result.data.data;
+              link.setAttribute('download',detailData["_pdf@aras.keyed_name"]);
+              document.body.appendChild(link);
+              link.click();
+              link.parentNode?.removeChild(link);
+              //window.open(result.data.data);
               //setItemList(result.data.data.value);
             }else{
              // setItemList([]);

@@ -31,6 +31,7 @@ const Header:React.FC<HeaderProp> = ({handleMenuClick,handleSave, title, mode,se
     "Product":ProductCriteria,
     "CS_PFC":PfcCriteria,
     "":Criteria,
+    "ToolingReceive":Criteria,
   }
   
   const clickMenu = () => {

@@ -74,6 +74,7 @@ const Main = () => {
         setMenuOpen={setMenuOpen} 
         setMenuName={setMenuName} 
         setItemType={setItemType}
+        setMode={setMode} 
         />
     </div>
   );

@@ -10,6 +10,7 @@ let databaseName = "DigitalPCC_Test";
 //global.databaseName = "InnovatorSolutions";
 const VAULT_URL = "http://203.228.101.197/digitalpcc/vault/odata";
 const SERVER_URL = "http://203.228.101.197/digitalpcc/Server/odata";
+//const BASE_URL = "";
 const BASE_URL = "http://203.228.117.46:9000";
 const API = {
   LIST:`${BASE_URL}/list`,

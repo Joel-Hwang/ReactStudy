@@ -17,9 +17,10 @@ interface TOCProps {
   setMenuOpen: (menuOpen: boolean) => void;
   setMenuName: (menuName: string) => void;
   setItemType: (itemType: string) => void;
+  setMode:(param:string) => void;
 }
 
-const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName, setItemType }) => {
+const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName, setItemType, setMode }) => {
 
   const menuList = [
     ["Product","Product"],
@@ -42,6 +43,7 @@ const TOC: React.FC<TOCProps> = ({ openProp, setMenuOpen, setMenuName, setItemTy
     if(menuname && itemTypeName){
       setMenuName(menuname);
       setItemType(itemTypeName);
+      setMode('list');
     }
   };
 
