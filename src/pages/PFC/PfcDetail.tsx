@@ -63,6 +63,12 @@ const PfcDetail:React.FC<DetailProp> = ({itemId}) => {
             }
           }}>PFC Download</Button>  
       </CardContent>
+
+      <video width={320} height={240} src='/video/process1.mp4' preload='none' controls>
+      </video>
+      <video width={320} height={240} src='/video/process2.mp4' preload='none' controls>
+      </video>
+      
     </Card>
   );
 }
